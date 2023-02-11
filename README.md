@@ -602,6 +602,7 @@ Also remember to add `.env` to `.gitignore`. Now we can push our code to GH as a
 
 ### Fonts from Google Fonts
 
+https://www.youtube.com/watch?v=L8_98i_bMMA&ab_channel=LeeRobinson
 The most traditional way to import Google Fonts into our project is to copy the link tag from Google Fonts and add inside our Head component. But there is another way that is more efficient:
 
 1. `npm i @next/font`
@@ -631,6 +632,7 @@ export default function App({ Component, pageProps }) {
 
 ### Local fonts
 
+https://www.youtube.com/watch?v=L8_98i_bMMA&ab_channel=LeeRobinson
 To add a locally stored font, it's basically the same as adding a font from Google Fonts.
 
 1. `npm i @next/font`
