@@ -598,9 +598,47 @@ Also remember to add `.env` to `.gitignore`. Now we can push our code to GH as a
 
 - authenticating using Next.js / MongoAtlas
 
-### SMALL BITS: Next.js
+## SMALL BITS: Next.js
 
-#### Smooth scrolling
+### Fonts from Google Fonts
+
+The most traditional way to import Google Fonts into our project is to copy the link tag from Google Fonts and add inside our Head component. But there is another way that is more efficient:
+
+1. `npm i @next/font`
+2. Import the desired font: `import { Nunito } from '@next/font/google';`
+3. Instantiate the font and define subsets and weight. Then add the className into the tag where you want to apply the font (can be the main tag for the whole app also):
+
+```js
+//_app.js
+import { Nunito } from '@next/font/google';
+
+const nunito = Nunito({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+}); //instantiate the font
+
+export default function App({ Component, pageProps }) {
+  return (
+    <main className={nunito.className}>
+      {' '}
+      //add the className
+      <Navbar />
+      <Component {...pageProps} />
+    </main>
+  );
+}
+```
+
+### Local fonts
+
+To add a locally stored font, it's basically the same as adding a font from Google Fonts.
+
+1. `npm i @next/font`
+2. Import localFont: `import localFont from '@next/font/local'`
+3. Instantiate the font: `const myFont = localFont({ src: './myfont.woff2' });`
+4. Then add the className into the tag where you want to apply the font (can be the main tag for the whole app also).
+
+### Smooth scrolling
 
 ```js
 // globals.css
@@ -620,9 +658,39 @@ export default function Projects() {
 
 ```
 
+# Tailwind CSS
+
+## Adding custom colors (variables)
+
+_repo portfolio-nextjs_
+We can add custom colors (primary, secondary) and define our themes, just like using CSS variables.
+
+1. Go to `tailwind.config.js` and add new custom color names inside of the extend object. We can use any name that we wish.
+2. Now we can use these color names in any class that accepts a color parameter. Eg: bg-primary text-secondary etc
+
+```js
+//tailwind.config.js
+module.exports = {
+  content: ['./src/**/*.{js,ts,jsx,tsx}'],
+  theme: {
+    extend: {
+      colors: {
+        primary: '#c1c1c1',
+        secondary: '#909090',
+        tertiary: '#242424',
+      },
+    },
+  },
+  plugins: [],
+};
+
+//
+
+
 #### On Markdown
 
 - **preview**: shift + command + v
 - **same page links**: [here](#place-2)
 
 _repo react-max-23-nextjs, lecture 318_
+```
