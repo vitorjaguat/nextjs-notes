@@ -648,6 +648,7 @@ export async function getStaticProps({ locale }) {
         'common',
         'footer', //these are the names of json files
       ])),
+      otherPropKey: 'otherpropvalue',
       // Will be passed to the page component as props
     },
   };
