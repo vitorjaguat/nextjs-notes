@@ -586,6 +586,8 @@ First remove all node moudle folder and packge-lock.json, then change the `packa
 
 #### Environment variables
 
+##### Environment variables + MongoDB
+
 In this section, Max hides the password by keeping the Git repository private. I wanted to make my repository public, so I added an environment variable `MY_ENVIRONMENT_VARIABLE` on the Vercel project page and set it to `<the MongoDB connect string>`. This value is a string, but you should NOT write it between '' in Vercel. Just the content itself.
 
 Then I referred to process.env.`MY_ENVIRONMENT_VARIABLE` in the MongoClient.connect function. This way the string with the password wasn't exposed in the git repository.
@@ -593,6 +595,42 @@ Then I referred to process.env.`MY_ENVIRONMENT_VARIABLE` in the MongoClient.conn
 To use the variable locally, I created a `.env` file and set `MY_ENVIRONMENT_VARIABLE='<the MongoDB connect string>'`. Restarted the dev server and it worked. Here you should use ''.
 
 Also remember to add `.env` to `.gitignore`. Now we can push our code to GH as a public repo.
+
+##### Environment variables + Firebase
+
+1. Create `.env.local` file on your project and write:
+
+```js
+NEXT_PUBLIC_API_KEY = your_api_key;
+NEXT_PUBLIC_AUTH_DOMAIN = your_auth_domain;
+NEXT_PUBLIC_PROJECT_ID = your_project_id;
+NEXT_PUBLIC_STORAGE_BUCKET = your_storage_bucket_url;
+NEXT_PUBLIC_MESSAGING_SENDER_ID = your_messaging_id;
+NEXT_PUBLIC_APP_ID = your_auth_id;
+NEXT_PUBLIC_DATABASE_URL = your_db_url;
+```
+
+2. Update `firebase/config.js` file:
+
+```js
+const firebaseConfig = {
+  apiKey: process.env.NEXT_PUBLIC_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_APP_ID,
+  databaseURL: process.env.NEXT_PUBLIC_DATABASE_URL,
+};
+```
+
+3. When deploy to Vercel, set the environment variables on the project's Settings:
+   ![on the project's settings](/img/next-env.webp)
+
+4. Make sure to uncheck the Automatic Expose checkbox.
+   ![on the project's settings](/img/next-env2.webp)
+
+5. Ready to deploy the app!
 
 ### MISSING POINTS:
 
