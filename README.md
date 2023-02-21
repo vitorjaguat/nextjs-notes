@@ -861,7 +861,25 @@ export default function Projects() {
 
 ```
 
+### Protecting routes
+
+To add protected routes in Next.js, we can use the useEffect hook:
+
+```js
+//new-post.js
+const { user } = useAuthContext();
+const router = useRouter();
+
+useEffect(() => {
+  user ? router.push('/new-post') : router.push('/signup');
+}, [user]);
+```
+
+Now, even if the user tries to insert the route /new-post in the browser, as soon as he reaches the page, before loading the jsx, useEffect will check if the the user is logged in.
+
 # Tailwind CSS
+
+## Setup
 
 ## Adding custom colors (variables)
 
