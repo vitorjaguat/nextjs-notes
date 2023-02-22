@@ -841,6 +841,57 @@ To add a locally stored font, it's basically the same as adding a font from Goog
 3. Instantiate the font: `const myFont = localFont({ src: './myfont.woff2' });`
 4. Then add the className into the tag where you want to apply the font (can be the main tag for the whole app also).
 
+### Google Fonts + Tailwind CSS
+
+1. `npm i next/font`
+2. Update \_app.js
+
+```js
+import '@/styles/globals.css';
+import { AnimatePresence } from 'framer-motion';
+import { useRouter } from 'next/router';
+import { Arvo } from '@next/font/google'; //import font
+
+const arvo = Arvo({
+  subsets: ['latin'],
+  weight: '400',
+  variable: '--arvo-font',
+  display: 'swap',
+}); //instantiate font
+
+export default function App({ Component, pageProps }) {
+  const router = useRouter();
+
+  return (
+    <main className={`${arvo.variable} font-arvo`}>
+      {' '}
+      //add font's variable & font's shortcut (see below)
+      <AnimatePresence mode='wait'>
+        <Component {...pageProps} key={router.asPath} />
+      </AnimatePresence>
+    </main>
+  );
+}
+```
+
+3. Configure `tailwind.config.js`
+
+```js
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: ['./src/**/*.{js,ts,jsx,tsx}'],
+  theme: {
+    extend: {
+      fontFamily: {
+        arvo: ['var(--arvo-font)'],
+      },
+    },
+  },
+  plugins: [],
+};
+//now you can add the class font-arvo to any tag (actually we're adding it to the whole app -> see above)
+```
+
 ### Smooth scrolling
 
 ```js
